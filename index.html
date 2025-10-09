@@ -6,34 +6,58 @@
     <script src="app.js" defer></script>
     <link rel="stylesheet" href="style.css">
     <title>Quiz</title>
+    <script src="app.js" defer></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <main>
-
-        <section id="welcome">
-            <h1 id="titel">Välkommen till vår Quiz!</h1>
-            <button id="category1">Kategori 1</button>
-            <button id="category2">Kategori 2</button>
-            
-        </section>
-
-        <section id="questions">
-            <h1>Fråga</h1>
-            <button id="answer 1"></button>
-            <button id="answer 2"></button>
-            <button id="answer 3"></button>
-            <button id="answer 4"></button>
-            <div>
-                <button id="next-question">Nästa fråga</button>
-            </div>
-
            
+        <section id="welcomeSection">
+
+            <h1 id="welcomeTitle">Välkommen till vår Quiz!</h1>
+            <button id="category1">category 1</button>
+            <button id="category2">category 2</button>
+
         </section>
 
-        <section id="results">
-            <h1>Bra jobbat</h1>
-            <h3 id="result"></h3>
-            <button>Starta om</button>
+        <section id="category1Section">
+
+            <h1 id="category1Title"></h1>
+            <p id="category1Text"></p>
+            <button id="startCategory1">Starta quiz</button>
+
+        </section>
+
+        <section id="category2Section">
+
+            <h1 id="category2Title"></h1>
+            <p id="category2Text"></p>
+            <button id="startCategory2">Starta quiz</button>
+
+        </section>
+
+        <section id="questionSection">
+
+            <h1 id="questionTitle">Fråga</h1>
+
+                <div id="questionContainer">
+
+                    <button id="answer 1"></button>
+                    <button id="answer 2"></button>
+                    <button id="answer 3"></button>
+                    <button id="answer 4"></button>
+
+                </div>
+
+        </section>
+
+        <section id="resultSection">
+
+            <h1 id="resultTitle">Bra jobbat</h1>
+            <h3 id="resultText"></h3>
+            <button id="resetBtn">Starta om</button>
+
         </section>
 
 
