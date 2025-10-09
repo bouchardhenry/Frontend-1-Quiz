@@ -1,0 +1,9 @@
+/* Hide section 2 and 3 by default */
+
+#questionSection {
+    display: none;
+}
+
+#resultSection {
+    display: none;
+}
