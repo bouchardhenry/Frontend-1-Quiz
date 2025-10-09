@@ -29,15 +29,35 @@ html {
     grid-row-gap: 20px;
 }
 
-#questionContainer button {
+#welcomeSection {
+    text-align: center;
+    color: white;
+    padding: 5rem;
+}
+
+#welcomeTitle {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+#welcomeButtons {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 3rem;
+}
+
+button {
     border: none;
     border-radius: 10px;
     background-color: orange;
     height: 100px;
+    min-width:200px;
+    font-size: 1.2rem;
     transition: 0.5s ease-in-out;
 }
 
-#questionContainer button:hover {
+button:hover {
     background-color: rgb(216, 143, 6);
     scale: 1.05;
     cursor: pointer;
