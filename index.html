@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="app.js" defer></script>
+    <link rel="stylesheet" href="style.css">
     <title>Quiz</title>
 </head>
 <body>
@@ -10,10 +12,9 @@
 
         <section id="welcome">
             <h1 id="titel">Välkommen till vår Quiz!</h1>
-            <button id="start-quiz">Kategori 1</button>
-            <button id="start-quiz">Kategori 2</button>
-            <script src="app.js" defer></script>
-            <link rel="stylesheet" href="style.css">
+            <button id="category1">Kategori 1</button>
+            <button id="category2">Kategori 2</button>
+            
         </section>
 
         <section id="questions">
@@ -22,6 +23,11 @@
             <button id="answer 2"></button>
             <button id="answer 3"></button>
             <button id="answer 4"></button>
+            <div>
+                <button id="next-question">Nästa fråga</button>
+            </div>
+
+           
         </section>
 
         <section id="results">
