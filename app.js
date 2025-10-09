@@ -1,5 +1,5 @@
-const fetchGeoQuestions = document.getElementById("category1");
-const fetchMythologyQuestions = document.getElementById("category2");
+const fetchGeoQuestions = document.getElementById("startCategory1");
+const fetchMythologyQuestions = document.getElementById("startCategory2");
 const nextQuestion = document.getElementById("next-question");
 
 fetchGeoQuestions.addEventListener("click", () => {
@@ -51,8 +51,8 @@ fetchMythologyQuestions.addEventListener("click", () => {
 // Declare buttons
 const Category1Btn = document.getElementById("category1");
 const Category2Btn = document.getElementById("category2");
-const startCategory1 = document.getElementById("startCategory1");
-const startCategory2 = document.getElementById("startCategory2");
+// const startCategory1 = document.getElementById("startCategory1");
+// const startCategory2 = document.getElementById("startCategory2");
 
 // Declare sections
 const welcomeSection = document.getElementById("welcomeSection");
@@ -69,20 +69,20 @@ Category1Btn.addEventListener('click', (e)=> {
     category1Section.style.display = 'block';
 })
 
-// Welcome -> kategori 2
+// // Welcome -> kategori 2
 Category2Btn.addEventListener('click', (e)=> {
     welcomeSection.style.display = 'none';
     category2Section.style.display = 'block';
 })
 
-// Kategori 1 -> Questions
-startCategory1.addEventListener('click', (e) => {
-    category1Section.style.display = 'none';
-    questionSection.style.display = 'block';
-})
+// // Kategori 1 -> Questions
+// startCategory1.addEventListener('click', (e) => {
+//     category1Section.style.display = 'none';
+//     questionSection.style.display = 'block';
+// })
 
-// Kategori 2 -> Questions
-startCategory2.addEventListener('click', (e) => {
-    category2Section.style.display = 'none';
-    questionSection.style.display = 'block';
-})
+// // Kategori 2 -> Questions
+// startCategory2.addEventListener('click', (e) => {
+//     category2Section.style.display = 'none';
+//     questionSection.style.display = 'block';
+// })
