@@ -43,11 +43,25 @@ fetchMythologyQuestions.addEventListener("click", () => {
     .then((data) => {
       console.log(data);
     })
+    const questions = data.results;
 
-    .catch((error) => {
-      console.error("Error fetching quiz questions:", error);
-    });
-});
+      if (questions.length > 0) {
+        // Visa första frågan
+        console.log(questions[currentQuestionIndex].question);
+
+      } else {
+        console.log("Inga frågor hittades.");
+      }
+
+      nextQuestion.addEventListener("click", () => {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+          console.log(questions[currentQuestionIndex].question);
+        } else {
+          console.log("Inga fler frågor.");
+        }
+      });
+    })
 // Declare buttons
 const Category1Btn = document.getElementById("category1");
 const Category2Btn = document.getElementById("category2");
