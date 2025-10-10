@@ -4,6 +4,14 @@ html {
     background-color:#444054
 }
 
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
 #questionSection {
     display: none;
 }
@@ -33,6 +41,10 @@ html {
     text-align: center;
     color: white;
     padding: 5rem;
+    background-color: #5c5673;
+    border: 3px solid white;
+    border-radius: 15px;
+    width: 500
 }
 
 #welcomeTitle {
@@ -46,6 +58,16 @@ html {
     gap: 50px;
     margin-top: 3rem;
 }
+
+#category1Title, #category2Title  {
+    color:white;
+}
+
+#category1Text, #category2Text {
+    color:white;
+}
+
+
 
 button {
     border: none;

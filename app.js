@@ -3,9 +3,9 @@ const Category1Btn = document.getElementById("category1");
 const Category2Btn = document.getElementById("category2");
 const fetchGeoQuestions = document.getElementById("startCategory1");
 const fetchMythologyQuestions = document.getElementById("startCategory2");
-const nextQuestion = document.getElementById("next-question");
-const restartQuiz = document.getElementById("restartQuiz");
-const questionTitle = document.getElementById("questionTitle");
+const nextQuestionBtn = document.getElementById("next-question");
+const resetBtn = document.getElementById("resetBtn");
+const answerButtons = document.querySelectorAll(".answerBtn");
 
 // Declare titles and text
 const welcomeTitle = document.getElementById("welcomeTitle");
@@ -14,6 +14,7 @@ const category2Title = document.getElementById("category2Title");
 const quiztext = document.getElementById("quiztext");
 const category1Text = document.getElementById("category1Text");
 const category2Text = document.getElementById("category2Text");
+const questionTitle = document.getElementById("questionTitle");
 
 // Declare sections
 const welcomeSection = document.getElementById("welcomeSection");
@@ -26,16 +27,16 @@ const resultSection = document.getElementById("resultSection");
 Category1Btn.addEventListener("click", (e) => {
   welcomeSection.style.display = "none";
   category1Section.style.display = "block";
-  category1Title.innerText = "Geografi";
-  category1Text.innerText = "Testa dina kunskaper om världen med vårt geografi-quiz! Från huvudstäder till landmärken – utmana dig själv och lär dig roliga fakta på vägen. Perfekt för quizkvällar eller bara som ett roligt sätt att fördriva tiden. Är du redo att utforska?";
+  category1Title.innerText = "Geography";
+  category1Text.innerText = "Test your knowledge of the world with our geography quiz! From capitals to landmarks – challenge yourself and discover fun facts along the way. Perfect for quiz nights or just as a fun way to pass the time. Are you ready to explore?";
 });
 
 // // Welcome -> kategori 2
 Category2Btn.addEventListener("click", (e) => {
   welcomeSection.style.display = "none";
   category2Section.style.display = "block";
-  category2Title.innerText = "Mytologi";
-  category2Text.innerText = "Dyk ner i myternas och legendernas fascinerande värld med vårt mytologi-quiz! Testa dina kunskaper om gudar, hjältar och mytiska varelser från olika kulturer runt om i världen. Oavsett om du är en mytologi-entusiast eller bara nyfiken kommer det här quizet garanterat att både underhålla och lära dig något nytt. Är du redo att ge dig ut på en mytisk resa?";
+  category2Title.innerText = "Mythology";
+  category2Text.innerText = "Dive into the fascinating world of myths and legends with our mythology quiz! Test your knowledge of gods, heroes, and mythical creatures from cultures all around the world. Whether you’re a mythology enthusiast or just curious, this quiz is sure to both entertain and teach you something new. Are you ready to embark on a mythical journey?";
 });
 
   function showQuestion(index, questions) {
@@ -48,8 +49,6 @@ Category2Btn.addEventListener("click", (e) => {
 
 // Kategori 1 - Hämta frågor
 fetchGeoQuestions.addEventListener("click", () => {
-  category1Section.style.display = "none";
-  questionSection.style.display = "block";
   fetch(
     "https://opentdb.com/api.php?amount=5&category=22&difficulty=medium&type=multiple"
   )
@@ -60,70 +59,103 @@ fetchGeoQuestions.addEventListener("click", () => {
       let currentQuestionIndex = 0;
       const questions = data.results;
 
-      if (questions.length > 0) {
-        // Visa första frågan
-        showQuestion(currentQuestionIndex, questions);
+      nextQuestionBtn.addEventListener("click", () => {
+      currentQuestionIndex++;
+      if (currentQuestionIndex < questions.length) {
+      questionTitle.innerHTML = questions[currentQuestionIndex].question;
       } else {
-        console.log("Inga frågor hittades.");
+      console.log("Inga fler frågor.");
+      questionSection.style.display = 'none';
+      resultSection.style.display = 'block';
       }
-
-      nextQuestion.addEventListener("click", () => {
-        currentQuestionIndex++;
-        if (currentQuestionIndex < questions.length) {
-          showQuestion(currentQuestionIndex, questions);
-        } else {
-          console.log("Inga fler frågor.");
-            questionSection.style.display = "none";
-            resultSection.style.display = "block";
-        }
-      });
-    })
-    })
-    // .catch((error) => {
-    //   console.error("Error fetching quiz questions:", error);
-    // });
-
-
-// Kategori 2 - Hämta frågor
-fetchGeoQuestions.addEventListener("click", () => {
-  fetch(
-    "https://opentdb.com/api.php?amount=5&category=22&difficulty=medium&type=multiple"
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      // Visa en fråga i taget
-      let currentQuestionIndex = 0;
-      const questions = data.results;
+});
       
       if (questions.length > 0) {
         // Visa första frågan i H1 och visa svarsalternativ
         questionTitle.innerHTML = questions[currentQuestionIndex].question;
         category1Section.style.display = 'none';
         questionSection.style.display = 'block';
+
+        
+
+        showQuestion();
       } else {
         console.log("Inga frågor hittades.");
       }
-
-      nextQuestion.addEventListener("click", () => {
-        currentQuestionIndex++;
-        if (currentQuestionIndex < questions.length) {
-          questionTitle.innerHTML = questions[currentQuestionIndex].question;
-        } else {
-          console.log("Inga fler frågor.");
-        }
-      });
     })
     .catch((error) => {
       console.error("Error fetching quiz questions:", error);
     });
 });
 
- const allAnswers = [...q.incorrect_answers, q.correct_answer];
+
+// Kategori 2 - Hämta frågor
+fetchMythologyQuestions.addEventListener("click", () => {
+  fetch(
+    "https://opentdb.com/api.php?amount=5&category=20&difficulty=medium&type=multiple"
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      let currentQuestionIndex = 0;
+      const questions = data.results;
+
+      if (questions.length > 0) {
+        questionTitle.innerHTML = questions[currentQuestionIndex].question;
+        category2Section.style.display = 'none';
+        questionSection.style.display = 'block';
+      } else {
+        console.log("Inga frågor hittades.");
+      }
+
+      nextQuestionBtn.addEventListener("click", () => {
+      currentQuestionIndex++;
+      if (currentQuestionIndex < questions.length) {
+      questionTitle.innerHTML = questions[currentQuestionIndex].question;
+      } else {
+      console.log("Inga fler frågor.");
+      questionSection.style.display = 'none';
+      resultSection.style.display = 'block';
+      }
+});
+
+    })
+    .catch((error) => {
+      console.error("Error fetching quiz questions:", error);
+    });
+});
+
+// Reusable function for showing questions + randomized answers
+function displayQuestion(questions, currentQuestionIndex) {
+  const q = questions[currentQuestionIndex];
+  questionTitle.innerHTML = q.question;
+    const allAnswers = [...q.incorrect_answers, q.correct_answer];
   const shuffled = shuffled(allAnswers);
 
+  // Update buttons with answers 
+  const buttons = document.querySelectorAll(".answerBtn");
+  buttons.forEach((btn, i) => {
+    btn.textContent = shuffled[i];
+    btn.disabled = false;
+    // When player clicks an answer
+    btn.onclick = () => handleAnswer(btn.textContent, q.correct_answer, btn, questions, currentQuestionIndex);
+  });
+}
+// Shuffle helper
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
 
+// Global score tracker
 let score = 0;
+
+function handleAnswer(selected, correct, btn, questions, currentQuestionIndex) {
+  const buttons = document.querySelectorAll(".answer-btn");
+  buttons.forEach((b) => (b.disabled = true));
+
 const scoreText = document.getElementById("resultText")
 function showResult (){
  resultText = 'Du fick ${score} av ${questions.lengt} rätt!'; 
@@ -135,4 +167,4 @@ function handleAnswer(selected, correct) {
     console.log("Rätt svar!");
   } else {
     console.log("Fel svar!");
-  }};
+  }}};
