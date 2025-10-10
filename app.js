@@ -27,16 +27,12 @@ const resultSection = document.getElementById("resultSection");
 Category1Btn.addEventListener("click", (e) => {
   welcomeSection.style.display = "none";
   category1Section.style.display = "block";
-  category1Title.innerText = "Geography";
-  category1Text.innerText = "Test your knowledge of the world with our geography quiz! From capitals to landmarks – challenge yourself and discover fun facts along the way. Perfect for quiz nights or just as a fun way to pass the time. Are you ready to explore?";
 });
 
 // // Welcome -> kategori 2
 Category2Btn.addEventListener("click", (e) => {
   welcomeSection.style.display = "none";
   category2Section.style.display = "block";
-  category2Title.innerText = "Mythology";
-  category2Text.innerText = "Dive into the fascinating world of myths and legends with our mythology quiz! Test your knowledge of gods, heroes, and mythical creatures from cultures all around the world. Whether you’re a mythology enthusiast or just curious, this quiz is sure to both entertain and teach you something new. Are you ready to embark on a mythical journey?";
 });
 
   function showQuestion(index, questions) {

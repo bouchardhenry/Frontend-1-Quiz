@@ -14,7 +14,7 @@
         <section id="welcomeSection">
 
             <h1 id="welcomeTitle">Welcome to our Quiz!</h1>
-            <div id="welcomeButtons">
+            <div id="welcomeButtons" class="buttonContainer">
                 <button id="category1">Geography</button>
                 <button id="category2">Mythology</button>
             </div>
@@ -23,17 +23,23 @@
 
         <section id="category1Section">
 
-            <h1 id="category1Title"></h1>
-            <p id="category1Text"></p>
-            <button id="startCategory1">Start quiz</button>
+            <h1 id="category1Title">Geography</h1>
+            <p id="category1Text">Test your knowledge in geography with our 5 question quiz!</p>
+            <div class="buttonContainer">
+                <button id="startCategory1">Start quiz</button>
+            </div>
+            
 
         </section>
 
         <section id="category2Section">
 
-            <h1 id="category2Title"></h1>
-            <p id="category2Text"></p>
-            <button id="startCategory2">Start quiz</button>
+            <h1 id="category2Title">Mythology</h1>
+            <p id="category2Text">Test your knowledge in mythology with our 5 question quiz!</p>
+            <div class="buttonContainer">
+                <button id="startCategory2">Start quiz</button>
+            </div>
+            
 
         </section>
 
@@ -41,7 +47,7 @@
 
             <h1 id="questionTitle">Fråga</h1>
 
-                <div id="questionContainer">
+                <div id="questionContainer" class="buttonContainer">
 
                     <button class="answerBtn" id="answer1"></button>
                     <button class="answerBtn" id="answer2"></button>
@@ -58,7 +64,9 @@
 
             <h1 id="resultTitle">Well done</h1>
             <h3 id="resultText"></h3>
-            <button id="resetBtn">Starta om</button>
+            <div class="buttonContainer">
+                <button id="resetBtn">Starta om</button>
+            </div>
 
         </section>
 
