@@ -81,70 +81,75 @@ function renderQuestion() {
     return finishQuiz();
   }
 
-  const q = questions[currentIndex]; // Aktuell fråga
-  questionTitle.innerHTML = q.question; // Sätt frågetext (innerHTML för att avkoda entiteter)
+  // Hämtar aktuell fråga och visar texten
+  const q = questions[currentIndex]; 
+  questionTitle.innerHTML = q.question; 
 
-  const correctAnswer = q.correct_answer; // Rätt svar
-  const incorrectAnswers = q.incorrect_answers; // Fel svar
-  const options = shuffle([correctAnswer, ...incorrectAnswers]); // Blanda svarsalternativ
+  //Hämtar rätt och fel svar och blandar de
+  const correctAnswer = q.correct_answer; 
+  const incorrectAnswers = q.incorrect_answers; 
+  const options = shuffle([correctAnswer, ...incorrectAnswers]); 
 
-  const buttons = document.querySelectorAll(".answerBtn"); // Hämta de 4 knapparna
+//Fyller i svarsknappar med text och gör de klickbara och sparar vilket svar som är rätt
+  const buttons = document.querySelectorAll(".answerBtn"); 
   buttons.forEach((btn, i) => {
-    const text = options[i] ?? ""; // Text för denna knapp
-    btn.innerHTML = text; // Sätt knappens text
-    btn.disabled = false; // Säkerställ att den kan klickas
-    btn.dataset.correct = String(text === correctAnswer); // Markera om rätt
-    btn.onclick = () => handleAnswer(text, correctAnswer, text === correctAnswer); // Klick-handler
+    const text = options[i] ?? ""; 
+    btn.innerHTML = text; 
+    btn.disabled = false; 
+    btn.dataset.correct = String(text === correctAnswer); 
+    btn.onclick = () => handleAnswer(text, correctAnswer, text === correctAnswer); 
   });
 }
 
-// Hantera val, spara till scoreLog och gå vidare
+// Funktion som körs när användaren väljer ett svar
 function handleAnswer(selectedText, correctAnswer, isCorrect) {
-  scoreLog.push({ // Spara försöket
-    question: questions[currentIndex].question, // Frågetext
-    selected: selectedText, // Valda svaret
-    correctAnswer, // Korrekt svar
-    isCorrect, // Om det blev rätt
+  scoreLog.push({ // Sparar frågan, valt svar och om det var rätt eller fel
+    question: questions[currentIndex].question, 
+    selected: selectedText, 
+    correctAnswer, 
+    isCorrect, 
   });
 
-  currentIndex += 1; // Nästa fråga
-  renderQuestion(); // Rendera nästa
+  // Går vidare till nästa fråga och visar den
+  currentIndex += 1; 
+  renderQuestion(); 
 }
 
-// Slutresultat: summera och visa
+// Funktion som visar slutresultatet när quizet är klart
 function finishQuiz() {
-  const correctCount = scoreLog.filter((r) => r.isCorrect).length; // Antal rätt
-  resultText.textContent = `You got ${correctCount} out of ${questions.length} correct!`; // Visa resultat
-  hide(questionSection); // Dölj frågor
-  show(resultSection); // Visa resultat
+  // Räknar hur många rätt och visar resultatet
+  const correctCount = scoreLog.filter((r) => r.isCorrect).length; 
+  resultText.textContent = `You got ${correctCount} out of ${questions.length} correct!`; 
+  hide(questionSection); 
+  show(resultSection); 
 }
 
-// Välkomstvy -> Kategori 1 (Geografi)
+// Välkomstsidan till Kategori 1 (Geografi)
 Category1Btn.addEventListener("click", () => {
-  hide(welcomeSection); // Dölj välkomstsida
-  category1Title.textContent = "Geography"; // Sätt rubrik
+  hide(welcomeSection); 
+  category1Title.textContent = "Geography"; 
   category1Text.textContent = "Test your knowledge of the world with our geography quiz! From capitals to landmarks, challenge yourself and discover fun facts along the way."; // Sätt text
-  show(category1Section); // Visa kategori 1-intro
+  show(category1Section); 
 });
 
-// Välkomstvy -> Kategori 2 (Mythology)
+// Välkomstsidan till Kategori 2 (Mythology)
 Category2Btn.addEventListener("click", () => {
-  hide(welcomeSection); // Dölj välkomstsida
-  category2Title.textContent = "Mythology"; // Sätt rubrik
+  hide(welcomeSection); 
+  category2Title.textContent = "Mythology"; 
   category2Text.textContent = "Dive into myths and legends from around the world. Test your knowledge of gods, heroes, and mythical creatures!"; // Sätt text
-  show(category2Section); // Visa kategori 2-intro
+  show(category2Section); 
 });
 
-// Starta respektive quiz
-fetchGeoQuestions.addEventListener("click", () => startQuiz(22, category1Section)); // Starta geografi
-fetchMythologyQuestions.addEventListener("click", () => startQuiz(20, category2Section)); // Starta mytologi
+// Starta quizen för vald kategori
+fetchGeoQuestions.addEventListener("click", () => startQuiz(22, category1Section)); 
+fetchMythologyQuestions.addEventListener("click", () => startQuiz(20, category2Section)); 
 
-// Starta om appen till välkomstvy
+// Återställer allt och visar välkomstsidan igen
 resetBtn.addEventListener("click", () => {
-  resetState(); // Nollställ data
-  hide(category1Section); // Dölj kategori 1
-  hide(category2Section); // Dölj kategori 2
-  hide(questionSection); // Dölj frågedel
-  hide(resultSection); // Dölj resultat
-  show(welcomeSection); // Visa välkomstsida
+  resetState(); 
+  hide(category1Section); 
+  hide(category2Section); 
+  hide(questionSection); 
+  hide(resultSection); 
+  show(welcomeSection); 
 });
