@@ -88,10 +88,6 @@ button:hover {
     padding: 15%;
 }
 
-#welcomeButtons {
-    width: fit-content;
-}
-
 #questionContainer {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -131,16 +127,31 @@ button:hover {
 
 /* Responsivitet */
 
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
+    
     .buttonContainer {
     display: flex;
     flex-direction: column;
+  }
+
+    h1 {
+    font-size: 2rem;
+  }
+
+    body {
+    padding-left: 5%;
+    padding-right: 5%;
   }
 }
 
 @media (max-width: 600px) {
   * {
     max-width: 100vw;
+  }
+
+  body {
+    padding-left: 5%;
+    padding-right: 5%;
   }
 
   h1 {
