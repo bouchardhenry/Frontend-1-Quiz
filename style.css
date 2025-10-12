@@ -85,3 +85,34 @@ button:hover {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
 }
+
+#geoContainer {
+    background-image: url(geography\ map.png);
+    background-size: cover;
+    border-radius: 15px;
+    border: solid white 2px;
+    margin-top: 2rem;
+    height: 500px;
+}
+
+#mythContainer {
+    background-image: url(mythology_img.webp);
+    border-radius: 15px;
+    border: solid white 2px;
+    margin-top: 2rem;
+    height: 500px;
+}
+
+.quizStartBtn {
+    border: solid rgba(0, 0, 0, 0.199) 4px;
+    border-radius: 20px;
+    background-color: rgb(0, 192, 0);
+    color: white;
+}
+
+.quizStartBtn:hover {
+    border: solid rgba(0, 0, 0, 0.199) 4px;
+    border-radius: 20px;
+    background-color: rgb(0, 160, 0);
+    transform: scale(1.3);
+}
