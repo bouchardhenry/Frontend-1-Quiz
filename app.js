@@ -1,82 +1,84 @@
 // Hämta DOM-element som används i appen
-const Category1Btn = document.getElementById("category1"); // Kategori-knapp 1
-const Category2Btn = document.getElementById("category2"); // Kategori-knapp 2
-const fetchGeoQuestions = document.getElementById("startCategory1"); // Start-knapp geografi
-const fetchMythologyQuestions = document.getElementById("startCategory2"); // Start-knapp mytologi
-const nextQuestionBtn = document.getElementById("next-question"); // Ev. nästa-knapp (döljs)
-const resetBtn = document.getElementById("resetBtn"); // Starta om-knapp
-const questionTitle = document.getElementById("questionTitle"); // H1 för frågetext
+const Category1Btn = document.getElementById("category1"); 
+const Category2Btn = document.getElementById("category2"); 
+const fetchGeoQuestions = document.getElementById("startCategory1"); 
+const fetchMythologyQuestions = document.getElementById("startCategory2"); 
+const resetBtn = document.getElementById("resetBtn"); 
+const questionTitle = document.getElementById("questionTitle"); 
 
 // Sektioner och texter
-const welcomeSection = document.getElementById("welcomeSection"); // Välkomstvy
-const category1Section = document.getElementById("category1Section"); // Geografi-intro
-const category2Section = document.getElementById("category2Section"); // Mytologi-intro
-const resultSection = document.getElementById("resultSection"); // Resultatvy
-const questionSection = document.getElementById("questionSection"); // Frågevy
-const resultText = document.getElementById("resultText"); // Resultattext
+const welcomeSection = document.getElementById("welcomeSection"); 
+const category1Section = document.getElementById("category1Section"); 
+const category2Section = document.getElementById("category2Section"); 
+const resultSection = document.getElementById("resultSection"); 
+const questionSection = document.getElementById("questionSection"); 
+const resultText = document.getElementById("resultText"); 
 
-const category1Title = document.getElementById("category1Title"); // Titel kategori 1
-const category2Title = document.getElementById("category2Title"); // Titel kategori 2
-const category1Text = document.getElementById("category1Text"); // Brödtext kategori 1
-const category2Text = document.getElementById("category2Text"); // Brödtext kategori 2
+const category1Title = document.getElementById("category1Title"); 
+const category2Title = document.getElementById("category2Title"); 
+const category1Text = document.getElementById("category1Text"); 
+const category2Text = document.getElementById("category2Text"); 
 
-// Globalt quiz-tillstånd
-let questions = []; // Hämtade frågor
-let currentIndex = 0; // Aktuell frågeindex
-let scoreLog = []; // Svarshistorik: {question, selected, correctAnswer, isCorrect}
+// Skapar arrayer för frågor och svar, samt variabel för aktuell fråga
+let questions = []; 
+let currentIndex = 0; 
+let scoreLog = []; 
 
-// Hjälpare: blanda en array (Fisher–Yates)
+// Funktion för att blanda en array ur API:et, så att frågorna blir randomized
 function shuffle(arr) {
-  const a = [...arr]; // Kopiera för att inte mutera originalet
-  for (let i = a.length - 1; i > 0; i--) { // Loop baklänges
-    const j = Math.floor(Math.random() * (i + 1)); // Slumpa index
-    [a[i], a[j]] = [a[j], a[i]]; // Byt plats på element
+  const a = [...arr]; 
+  for (let i = a.length - 1; i > 0; i--) { 
+    const j = Math.floor(Math.random() * (i + 1)); 
+    [a[i], a[j]] = [a[j], a[i]]; 
   }
-  return a; // Returnera blandad array
+  return a;
 }
 
-// UI-hjälpare för att visa/dölja
-function show(el) { el.style.display = "block"; } // Visa element
-function hide(el) { el.style.display = "none"; } // Dölj element
+// Funktioner för att visa och dölja element
+function show(element) { element.style.display = "block"; } 
+function hide(element) { element.style.display = "none"; } 
 
-// Återställ quizets interna state
+// Återställer variabler när man startar om quizet
 function resetState() {
-  questions = []; // Töm frågor
-  currentIndex = 0; // Börja från första frågan
-  scoreLog = []; // Töm svarshistorik
+  questions = []; 
+  currentIndex = 0;
+  scoreLog = []; 
 }
 
-// Starta quiz för vald kategori-id och sektion vi lämnar
-function startQuiz(categoryId, fromSection) {
-  resetState(); // Nollställ state
-  hide(fromSection); // Dölj kategori-intro
-  // Hämta frågor från OpenTDB
+// Funktion för att starta quiz för vald kategori
+function startQuiz(categoryId, sectionToHide) {
+  resetState(); 
+  hide(sectionToHide); 
+  // Hämtar data från API med vald kategori. 
+  // categoryId är 22 för Geografi och 20 för Mythology
   fetch(`https://opentdb.com/api.php?amount=5&category=${categoryId}&difficulty=medium&type=multiple`)
-    .then((res) => res.json()) // Parsa JSON
+    .then((res) => res.json()) 
     .then((data) => {
-      questions = data.results || []; // Spara frågor
-      if (!questions.length) { // Inga frågor?
-        resultText.textContent = "Inga frågor hittades."; // Visa fel
-        hide(questionSection); // Dölj frågedel
-        show(resultSection); // Visa resultat
-        return; // Avsluta
+      questions = data.results || []; 
+      // Felhantering om inga frågor hittas
+      if (!questions.length) { 
+        resultText.textContent = "No questions found."; 
+        hide(questionSection); 
+        show(resultSection); 
+        return; 
       }
-      show(questionSection); // Visa frågedel
-      hide(resultSection); // Dölj resultat-vy
-      renderQuestion(); // Rendera första frågan
+      show(questionSection);
+      hide(resultSection);
+      renderQuestion();
     })
     .catch((err) => {
-      console.error("Error fetching quiz questions:", err); // Logga fel
-      resultText.textContent = "Kunde inte hämta frågor."; // Visa fel i UI
-      hide(questionSection); // Dölj frågor
-      show(resultSection); // Visa resultat-vy
+      console.error("Error fetching quiz questions:", err);
+      resultText.textContent = "Unable to load questions.";
+      hide(questionSection);
+      show(resultSection); 
     });
 }
 
-// Rendera aktuell fråga och fyll varje knapp
+// Funktion för att skriva ut aktuell fråga och svarsalternativ
 function renderQuestion() {
-  if (currentIndex >= questions.length) { // Slut på frågor?
-    return finishQuiz(); // Gå till resultat
+  // OM det är slut på frågor, visa resultatet
+  if (currentIndex >= questions.length) { 
+    return finishQuiz();
   }
 
   const q = questions[currentIndex]; // Aktuell fråga
@@ -94,8 +96,6 @@ function renderQuestion() {
     btn.dataset.correct = String(text === correctAnswer); // Markera om rätt
     btn.onclick = () => handleAnswer(text, correctAnswer, text === correctAnswer); // Klick-handler
   });
-
-  if (nextQuestionBtn) hide(nextQuestionBtn); // Dölj "Next" (auto-vidare)
 }
 
 // Hantera val, spara till scoreLog och gå vidare
@@ -114,7 +114,7 @@ function handleAnswer(selectedText, correctAnswer, isCorrect) {
 // Slutresultat: summera och visa
 function finishQuiz() {
   const correctCount = scoreLog.filter((r) => r.isCorrect).length; // Antal rätt
-  resultText.textContent = `Du fick ${correctCount} av ${questions.length} rätt!`; // Visa resultat
+  resultText.textContent = `You got ${correctCount} out of ${questions.length} correct!`; // Visa resultat
   hide(questionSection); // Dölj frågor
   show(resultSection); // Visa resultat
 }
