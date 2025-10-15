@@ -3,32 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz</title>
     <script src="app.js" defer></script>
     <link rel="stylesheet" href="style.css">
+    <title>Quiz</title>
 </head>
 <body>
-    
-    <main>
 
+    <main>
+           
         <section id="welcomeSection">
-            <h1 id="welcomeTitle">Välkommen till vår Quiz!</h1>
-            <button id="category1">Kategori 1</button>
-            <button id="category2">Kategori 2</button>
+
+            <h1 id="welcomeTitle">Welcome to our Quiz!</h1>
+            <p>Pick a category to start the quiz and test your knowledge in geography or mythology. Good luck!</p>
+            <div id="welcomeButtons" class="buttonContainer">
+                <button id="category1">Geography</button>
+                <button id="category2">Mythology</button>
+            </div>
+
+        </section>
+
+        <section id="category1Section">
+
+            <h1 id="category1Title">Geography</h1>
+            <p id="category1Text">Test your knowledge in geography with our 5 question quiz!</p>
+            <div class="categoryContainer" id="geoContainer">
+                <button id="startCategory1" class="quizStartBtn">Start quiz</button>
+            </div>
+            
+
+        </section>
+
+        <section id="category2Section">
+
+            <h1 id="category2Title">Mythology</h1>
+            <p id="category2Text">Test your knowledge in mythology with our 5 question quiz!</p>
+            <div class="categoryContainer" id="mythContainer">
+                <button id="startCategory2" class="quizStartBtn">Start quiz</button>
+            </div>
+            
+
         </section>
 
         <section id="questionSection">
-            <h1 id="questionTitle">Fråga</h1>
-            <button id="answer 1"></button>
-            <button id="answer 2"></button>
-            <button id="answer 3"></button>
-            <button id="answer 4"></button>
+
+            <h1 id="questionTitle">Question</h1>
+
+                <div id="questionContainer" class="buttonContainer">
+
+                    <button class="answerBtn" id="answer1"></button>
+                    <button class="answerBtn" id="answer2"></button>
+                    <button class="answerBtn" id="answer3"></button>
+                    <button class="answerBtn" id="answer4"></button>
+
+                </div>
+
         </section>
 
         <section id="resultSection">
-            <h1 id="resultTitle">Bra jobbat</h1>
+
+            <h1 id="resultTitle">Well done</h1>
             <h3 id="resultText"></h3>
-            <button id="resetBtn">Starta om</button>
+            <div class="buttonContainer">
+                <button id="resetBtn">Restart quiz</button>
+            </div>
+
         </section>
 
 
