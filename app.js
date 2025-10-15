@@ -72,6 +72,7 @@ function startQuiz(categoryId, sectionToHide) {
       hide(resultSection);
       renderQuestion();
     })
+    //Felhantering om fetch misslyckas
     .catch((err) => {
       console.error("Error fetching quiz questions:", err);
       resultText.textContent = "Unable to load questions.";
@@ -91,15 +92,15 @@ function renderQuestion() {
   const q = questions[currentIndex];
   questionTitle.innerHTML = q.question;
 
-  //Hämtar rätt och fel svar och blandar de
+  //Hämtar rätt och fel svar och blandar dem
   const correctAnswer = q.correct_answer;
   const incorrectAnswers = q.incorrect_answers;
-  const options = shuffle([correctAnswer, ...incorrectAnswers]);
+  const answerOptions = shuffle([correctAnswer, ...incorrectAnswers]);
 
   //Fyller i svarsknappar med text och gör de klickbara och sparar vilket svar som är rätt
   const buttons = document.querySelectorAll(".answerBtn");
   buttons.forEach((btn, i) => {
-    const text = options[i] ?? "";
+    const text = answerOptions[i];
     btn.innerHTML = text;
     btn.disabled = false;
     btn.dataset.correct = String(text === correctAnswer);
@@ -128,13 +129,14 @@ function finishQuiz() {
   // Räknar hur många rätt och visar resultatet
   const correctCount = scoreLog.filter((r) => r.isCorrect).length;
 
+  // Ändrar färg på resultattext beroende på hur många rätt
   resultText.textContent = `You got ${correctCount} out of ${questions.length} correct!`;
   if (correctCount === questions.length) {
-    resultText.style.color = "green"; // All correct
+    resultText.style.color = "green";
   } else if (correctCount >= Math.ceil(questions.length / 2)) {
-    resultText.style.color = "orange"; // Half or more correct
+    resultText.style.color = "orange";
   } else {
-    resultText.style.color = "red"; // Less than half correct
+    resultText.style.color = "red";
   }
 
   hide(questionSection);
